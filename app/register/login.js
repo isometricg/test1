@@ -1,9 +1,9 @@
 var conString = require('../../app/dbconnect')
-
+var bcrypt = require('bcrypt')
 exports.login = function(request, response)
 	{	
-		var email = request.body.email;
-		var password = request.body.password;
+		var password = request.body.password;		
+		var email = request.body.email;		
 		conString.query('SELECT * FROM users WHERE email = ?',[email], 
 		function (err, results, fields)
 		{
@@ -20,8 +20,10 @@ exports.login = function(request, response)
 			{
 			
 			if(results.length >0)
-			{
-				if(results[0].email = email && results[0].password == password)
+			{	
+				var passwordenc = bcrypt.compareSync(password, results[0].password)
+				
+				if(results[0].email = email && passwordenc == true)
 					{						
 					
 					conString.query('SELECT * FROM users', function (err, rows)

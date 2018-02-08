@@ -1,12 +1,20 @@
 var conString = require('../../app/dbconnect')
+var bcrypt = require('bcrypt')
+
 
 exports.registration = function(request, response)
 	{	
-		var userdata = {
+		var email = request.body.email;
+		var salt = bcrypt.genSaltSync(10);
+		var password = request.body.password;
+		var passwordToSave = bcrypt.hashSync(password, salt);
+
+		var userdata = 
+		{
 			first_name:request.body.firstname,
 			last_name: request.body.lastname,
 			email: request.body.email,
-			password: request.body.password		
+			password: passwordToSave
 		}
 		
 			if (request.body.email == "" || request.body.password == "" )

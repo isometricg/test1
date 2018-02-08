@@ -9,38 +9,39 @@ const app = express()
 const passport = require('passport')
 const bodyParser = require('body-parser')
 
-app.use(bodyParser.urlencoded({
+app.use(bodyParser.urlencoded
+	({
   extended: true
-}))
+	}))
 
 
-app.engine('.hbs', exphbs({
+app.engine('.hbs', exphbs
+	({
 	defaultLayout: 'layout',
 	extname: '.hbs',
 	layoutsDir: path.join(__dirname, 'views/'),
-	
-}));
+	}));
 
 app.set('view engine', '.hbs')
 app.set('views', path.join(__dirname, 'views'))
 
-app.get('/', function(request, response) {
-	response.render('welcome')
-	//login.login
-	//console.log(request.body.username)
-})
+app.get('/', function(request, response) 
+	{
+	response.render('welcome')	
+	})
 
-app.get('/login', function(request, response) {
+app.get('/login', function(request, response) 
+	{
 	response.render('login')
 })
 
-app.get('/registration', function(request, response) {
+app.get('/registration', function(request, response) 
+	{
 	response.render('registration')
-})
-//app.post('/welcome', lgn);
+	})
+
 app.post('/registration', registration.registration);
 app.post('/login', login.login);
 app.post('/finduser', finduser.finduser);
-
 
 module.exports = app
