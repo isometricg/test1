@@ -4,7 +4,7 @@ exports.login = function(request, response)
 	{	
 		var password = request.body.password;		
 		var email = request.body.email;		
-		conString.query('SELECT * FROM users WHERE email = ?',[email], 
+		conString.query('SELECT * FROM users WHERE email = ?',[email],
 		function (err, results, fields)
 		{
 		if (err) 
